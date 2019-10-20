@@ -14,6 +14,8 @@
 		79FAF9512358FE750076E462 /* group18_Assignment_6.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79FAF94F2358FE750076E462 /* group18_Assignment_6.xcdatamodeld */; };
 		79FAF9532358FE760076E462 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79FAF9522358FE760076E462 /* Assets.xcassets */; };
 		79FAF9562358FE760076E462 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79FAF9542358FE760076E462 /* LaunchScreen.storyboard */; };
+		FECD1C63235CCDCA00EAC52B /* AddAdventurerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECD1C62235CCDCA00EAC52B /* AddAdventurerViewController.swift */; };
+		FECD1C65235CD83D00EAC52B /* AddAdventurerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECD1C64235CD83D00EAC52B /* AddAdventurerCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		79FAF9522358FE760076E462 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		79FAF9552358FE760076E462 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		79FAF9572358FE760076E462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FECD1C62235CCDCA00EAC52B /* AddAdventurerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAdventurerViewController.swift; sourceTree = "<group>"; };
+		FECD1C64235CD83D00EAC52B /* AddAdventurerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAdventurerCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +62,11 @@
 		79FAF9452358FE750076E462 /* group18_Assignment 6 */ = {
 			isa = PBXGroup;
 			children = (
+				FECD1C66235CD84D00EAC52B /* AddAdventurer */,
 				79FAF9462358FE750076E462 /* AppDelegate.swift */,
 				79FAF9482358FE750076E462 /* SceneDelegate.swift */,
+				FECD1C62235CCDCA00EAC52B /* AddAdventurerViewController.swift */,
+				FECD1C64235CD83D00EAC52B /* AddAdventurerCollectionViewCell.swift */,
 				79FAF94A2358FE750076E462 /* ViewController.swift */,
 				79FAF94C2358FE750076E462 /* Main.storyboard */,
 				79FAF9522358FE760076E462 /* Assets.xcassets */,
@@ -68,6 +75,13 @@
 				79FAF94F2358FE750076E462 /* group18_Assignment_6.xcdatamodeld */,
 			);
 			path = "group18_Assignment 6";
+			sourceTree = "<group>";
+		};
+		FECD1C66235CD84D00EAC52B /* AddAdventurer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AddAdventurer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,8 +156,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				79FAF9512358FE750076E462 /* group18_Assignment_6.xcdatamodeld in Sources */,
+				FECD1C63235CCDCA00EAC52B /* AddAdventurerViewController.swift in Sources */,
 				79FAF94B2358FE750076E462 /* ViewController.swift in Sources */,
 				79FAF9472358FE750076E462 /* AppDelegate.swift in Sources */,
+				FECD1C65235CD83D00EAC52B /* AddAdventurerCollectionViewCell.swift in Sources */,
 				79FAF9492358FE750076E462 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
