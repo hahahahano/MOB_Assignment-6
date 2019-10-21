@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class AddAdventurerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -18,12 +19,16 @@ class AddAdventurerViewController: UIViewController, UICollectionViewDelegate, U
     
     let itemsPerRow: CGFloat = 1
     let sectionInsets = UIEdgeInsets(top: 0, left: 20.0, bottom: 0, right: 20.0)
+    var chosenImage: UIImage? = UIImage(named: "default")
     
     let adventurerImages: [UIImage] = [
         UIImage(named: "abra")!,
         UIImage(named: "eevee")!,
         UIImage(named: "pikachu")!
     ]
+    
+    var adventurers: [NSManagedObject] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,17 +36,75 @@ class AddAdventurerViewController: UIViewController, UICollectionViewDelegate, U
         addAdventurerCollectionView.delegate=self
     }
     
+    var adventurerAdded: Bool = false
+    //Function when the save button is tapped
     @IBAction func addAdventurerTapped(_ sender: Any) {
-        if (enterName.text?.trimmingCharacters(in: .whitespaces).isEmpty ?? true) || (enterClass.text?.trimmingCharacters(in: .whitespaces).isEmpty ?? true) {
-            let alert = UIAlertController(title: "No input", message: "Please enter both Name and Class", preferredStyle: .alert)
+        //Checks for whitespace/empty textfields
+        if (enterName.text?.trimmingCharacters(in: .whitespaces).isEmpty ?? true) || (enterClass.text?.trimmingCharacters(in: .whitespaces).isEmpty ?? true) || (chosenImage?.isEqual(UIImage(named: "default")) ?? false){
+            let alert = UIAlertController(title: "No input", message: "Please enter both Name and Class, and choose an image", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alert, animated: true)
         }
          else{
             //TODO: Add code to add adventurer to core data
+            
+      /*      let saveAction = UIAlertAction(title: "Save", style: .default) {
+              [unowned self] action in
+ 
+        */
+            adventurerAdded = true
+            let nameToSave = self.enterName.text
+            let classToSave = self.enterClass.text
+            let imageToSave = chosenImage!
+              
+            self.save(name: nameToSave ?? "ERROR", adventurerClass: classToSave ?? "ERROR" , image: imageToSave)
+            
+            let alert2 = UIAlertController(title: "Adventurer added!", message: "Your adventurer has been added to your collection! Go back to see it in the list", preferredStyle: .alert)
+            alert2.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert2, animated: true)
+            
+            enterName.text=""
+            enterClass.text=""
+       
         
         }
     }
+    
+    //Function to save data to CoreData
+    func save(name: String, adventurerClass: String, image: UIImage) {
+      guard let appDelegate =
+        UIApplication.shared.delegate as? AppDelegate else {
+        return
+      }
+      
+      // 1
+      let managedContext =
+        appDelegate.persistentContainer.viewContext
+      // 2
+      let entity =
+        NSEntityDescription.entity(forEntityName: "Adventurer",
+                                   in: managedContext)!
+      
+      let adventurer = NSManagedObject(entity: entity,
+                                   insertInto: managedContext)
+      
+      // 3
+        adventurer.setValue(name, forKeyPath: "name")
+        adventurer.setValue(adventurerClass, forKeyPath: "adventurerClass")
+        adventurer.setValue(image.pngData(), forKeyPath: "image")
+        adventurer.setValue(1, forKey: "level")
+      
+      // 4
+      do {
+        try managedContext.save()
+        adventurers.append(adventurer)
+      } catch let error as NSError {
+        print("Could not save. \(error), \(error.userInfo)")
+      }
+    }
+    
+    
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -56,6 +119,17 @@ class AddAdventurerViewController: UIViewController, UICollectionViewDelegate, U
         cell.adventurerImageView.image = adventurerImages[indexPath.item]
         
         return cell
+    }
+    
+    
+    //Setting selected image
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.layer.borderWidth = 3.0
+        cell?.layer.borderColor = UIColor.blue.cgColor
+        
+        chosenImage = self.adventurerImages[indexPath.row]
+        
     }
     
 

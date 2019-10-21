@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15400" systemVersion="18G103" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Adventurer" representedClassName="Adventurer" syncable="YES" codeGenerationType="class"/>
+    <entity name="Adventurer" representedClassName="Adventurer" syncable="YES" codeGenerationType="class">
+        <attribute name="adventurerClass" optional="YES" attributeType="String"/>
+        <attribute name="attack" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="hp" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="level" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
-        <element name="Adventurer" positionX="-54" positionY="-9" width="128" height="43"/>
+        <element name="Adventurer" positionX="-54" positionY="-9" width="128" height="133"/>
     </elements>
 </model>
