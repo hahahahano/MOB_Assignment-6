@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79A7FB7B235E878200177A12 /* AdventurerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A7FB7A235E878200177A12 /* AdventurerTableViewCell.swift */; };
+		79A7FB7D235E9F6600177A12 /* QuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A7FB7C235E9F6600177A12 /* QuestViewController.swift */; };
 		79FAF9472358FE750076E462 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FAF9462358FE750076E462 /* AppDelegate.swift */; };
 		79FAF9492358FE750076E462 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FAF9482358FE750076E462 /* SceneDelegate.swift */; };
 		79FAF94B2358FE750076E462 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FAF94A2358FE750076E462 /* ViewController.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		79A7FB7A235E878200177A12 /* AdventurerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventurerTableViewCell.swift; sourceTree = "<group>"; };
+		79A7FB7C235E9F6600177A12 /* QuestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestViewController.swift; path = "../../group18_Assignment 6-2/group18_Assignment 6/QuestViewController.swift"; sourceTree = "<group>"; };
 		79FAF9432358FE750076E462 /* group18_Assignment 6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "group18_Assignment 6.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79FAF9462358FE750076E462 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79FAF9482358FE750076E462 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,10 +69,10 @@
 				FECD1C66235CD84D00EAC52B /* AddAdventurer */,
 				79FAF9462358FE750076E462 /* AppDelegate.swift */,
 				79FAF9482358FE750076E462 /* SceneDelegate.swift */,
-				FECD1C62235CCDCA00EAC52B /* AddAdventurerViewController.swift */,
-				FECD1C64235CD83D00EAC52B /* AddAdventurerCollectionViewCell.swift */,
 				79FAF94A2358FE750076E462 /* ViewController.swift */,
 				79FAF94C2358FE750076E462 /* Main.storyboard */,
+				79A7FB7C235E9F6600177A12 /* QuestViewController.swift */,
+				79A7FB7A235E878200177A12 /* AdventurerTableViewCell.swift */,
 				79FAF9522358FE760076E462 /* Assets.xcassets */,
 				79FAF9542358FE760076E462 /* LaunchScreen.storyboard */,
 				79FAF9572358FE760076E462 /* Info.plist */,
@@ -80,6 +84,8 @@
 		FECD1C66235CD84D00EAC52B /* AddAdventurer */ = {
 			isa = PBXGroup;
 			children = (
+				FECD1C62235CCDCA00EAC52B /* AddAdventurerViewController.swift */,
+				FECD1C64235CD83D00EAC52B /* AddAdventurerCollectionViewCell.swift */,
 			);
 			path = AddAdventurer;
 			sourceTree = "<group>";
@@ -159,6 +165,8 @@
 				FECD1C63235CCDCA00EAC52B /* AddAdventurerViewController.swift in Sources */,
 				79FAF94B2358FE750076E462 /* ViewController.swift in Sources */,
 				79FAF9472358FE750076E462 /* AppDelegate.swift in Sources */,
+				79A7FB7B235E878200177A12 /* AdventurerTableViewCell.swift in Sources */,
+				79A7FB7D235E9F6600177A12 /* QuestViewController.swift in Sources */,
 				FECD1C65235CD83D00EAC52B /* AddAdventurerCollectionViewCell.swift in Sources */,
 				79FAF9492358FE750076E462 /* SceneDelegate.swift in Sources */,
 			);
