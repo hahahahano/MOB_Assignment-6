@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import os.log
 
 class QuestViewController: UIViewController {
     //MARK: Properties
@@ -18,24 +19,40 @@ class QuestViewController: UIViewController {
     @IBOutlet weak var qHP: UILabel!
     @IBOutlet weak var qImage: UIImageView!
     @IBOutlet weak var questLog: UITextView!
+    @IBOutlet weak var endQuest: UIButton!
     
+    var adventurer = NSManagedObject()
+    
+    //MARK: Methods
+    //Loading the screen
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        qName?.text = adventurer.value(forKeyPath: "name") as? String
+        qLevel?.text = "\(adventurer.value(forKeyPath: "level") as? Int ?? 0)"
+        qClass?.text = adventurer.value(forKeyPath: "adventurerClass") as? String
+        let attackFl = adventurer.value(forKeyPath: "attack") as? Float
+        qAttack?.text = String(format: "%.2f", attackFl ?? 0)
+        let currentHPStatus = adventurer.value(forKeyPath: "currentHP") as? Int
+        let totalHPStatus = adventurer.value(forKeyPath: "totalHP") as? Int
+        qHP?.text = "\(currentHPStatus ?? 0)"+"/"+"\(totalHPStatus ?? 0)"
+        qImage?.image = adventurer.value(forKeyPath: "image") as? UIImage
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    //Quest Dialogue
+    //Quest Timers
+    //Updating the info at the top according to quest (change level, currentHP)
+        //Make sure this saves to core data
+        //Also make sure that when the person returns to the main screen (the table view) that the current HP returns to total HP (regaining their HP) AND that the new level is updated
+    
+    //MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    @IBAction func endQuest(_ sender: UIButton) {
+        super.prepare(for: segue, sender: sender)
+        
+        //Configure the destination view controller only when the end quest button is pressed
+        guard let button = sender as? UIButton, button === endQuest else {
+            os_log("The End Quest button was not pressed, cancelling quest and progress", log: OSLog.default, type: .debug)
+            return
+        }
     }
 }

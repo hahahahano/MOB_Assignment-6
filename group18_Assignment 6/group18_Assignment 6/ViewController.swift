@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import os.log
 
 class ViewController: UIViewController, UITableViewDelegate {
     //MARK: Properties
@@ -17,7 +18,7 @@ class ViewController: UIViewController, UITableViewDelegate {
     var deleteAdventurerIndexPath: NSIndexPath? = nil
     
     //MARK:Methods
-    //Function to save data to CoreData
+    //Saves data to CoreData
     func save(name: String, adventurerClass: String, image: UIImage, level: Int, currentHP: Int, totalHP: Int, attack: Float) {
       guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
         return
@@ -43,6 +44,7 @@ class ViewController: UIViewController, UITableViewDelegate {
       }
     }
     
+    //Deleting data (***I can't get this to appear, so I don't know if the code I wrote works or not)
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: NSIndexPath) {
         if editingStyle == .delete {
             deleteAdventurerIndexPath = indexPath
@@ -51,6 +53,7 @@ class ViewController: UIViewController, UITableViewDelegate {
         }
     }
     
+    //Alert to confirm delete
     func confirmDelete(adventurer: NSObject) {
         let advName = adventurer.value(forKeyPath: "name")
         let alert = UIAlertController(title: "Delete Adventurer", message: "Are you sure you want to delete \(String(describing: advName))?", preferredStyle: .actionSheet)
@@ -59,7 +62,7 @@ class ViewController: UIViewController, UITableViewDelegate {
         alert.addAction(DeleteAction)
         alert.addAction(CancelAction)
     }
-    
+        //Handling deleting the data
     func handleDeleteAdventurer(alertAction: UIAlertAction!) -> Void {
         if let indexPath = deleteAdventurerIndexPath {
             adventurers.remove(at: indexPath.row)
@@ -68,46 +71,85 @@ class ViewController: UIViewController, UITableViewDelegate {
             deleteAdventurerIndexPath = nil
         }
     }
-    
+        //Cancelling the deleting
     func cancelDeleteAdventurer(alertAction: UIAlertAction!) {
         deleteAdventurerIndexPath = nil
     }
+        //Confirming that the table is editable (***I don't know if this is needed)
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
+    //Loading the screen
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.leftBarButtonItem = editButtonItem
         adventurerTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
+    //Fetching the core data
     override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
+        super.viewWillAppear(animated)
 
-      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-          return
-      }
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
       
-      let managedContext = appDelegate.persistentContainer.viewContext
-      let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Adventurer")
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Adventurer")
 
-      do {
-        adventurers = try managedContext.fetch(fetchRequest)
-      } catch let error as NSError {
-        print("Could not fetch. \(error), \(error.userInfo)")
-      }
+        do {
+            adventurers = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
     }
     
     //MARK: Actions
     @IBAction func unwindToAdventurerList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? AddAdventurerViewController, let adventure = sourceViewController.adventure {
             self.save(name: adventure.name, adventurerClass: adventure.adClass, image: adventure.image, level: adventure.level, currentHP: adventure.currentHP, totalHP: adventure.currentHP, attack: adventure.attack)
+        } else if let sourceViewController = sender.source as? QuestViewController {
+            //regaining HP (current HP = total HP)
+            //Refresh table (make sure that the level is updated)
         }
         self.adventurerTableView.reloadData()
     }
     
-    //When unwinding from quest, regain hit points ==> currentHP = totalHP
+    //MARK: Navigation
+    //Navigating between the different views
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        switch(segue.identifier ?? "") {
+            case "AddAdventurer":
+                os_log("Adding a new adventurer", log: OSLog.default, type: .debug)
+            
+            case "Quest":
+                guard let QuestViewController = segue.destination as? QuestViewController else {
+                    fatalError("Unexpected destination: \(segue.destination)")
+                }
+                
+                guard let selectedCell = sender as? AdventurerTableViewCell else {
+                    fatalError("Unexpected sender: \(sender)")
+                }
+                 
+                guard let indexPath = adventurerTableView.indexPath(for: selectedCell) else {
+                    fatalError("The selected cell is not being displayed by the table.")
+                }
+                
+                let selectedAdventurer = adventurers[indexPath.row]
+                QuestViewController.adventurer = selectedAdventurer
+
+            default:
+                fatalError("Unexpected Segue Identifier; \(segue.identifier)")
+        }
+    }
 }
 
 //MARK: UITableViewDataSource
+//Displaying the adventurers in the table cells
 extension ViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return adventurers.count

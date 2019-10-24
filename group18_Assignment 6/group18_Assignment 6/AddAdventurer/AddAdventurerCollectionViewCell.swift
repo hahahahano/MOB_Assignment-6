@@ -9,7 +9,6 @@
 import UIKit
 
 class AddAdventurerCollectionViewCell: UICollectionViewCell {
-    
+    //MARK: Properties
     @IBOutlet weak var adventurerImageView: UIImageView!
-    
 }

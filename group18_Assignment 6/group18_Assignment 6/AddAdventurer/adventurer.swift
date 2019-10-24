@@ -8,6 +8,7 @@
 
 import UIKit
 
+//Used to move the data input from Add Adventurer view through the segue and onto the View Controller/Table View and stored into the core
 class adventurer {
     let name: String
     let adClass: String
@@ -19,7 +20,6 @@ class adventurer {
     
     //MARK: Initialization
     init(name: String, adClass: String , image: UIImage, level: Int, currentHP: Int, totalHP: Int, attack: Float) {
-
         self.name = name
         self.adClass = adClass
         self.image = image
@@ -27,7 +27,5 @@ class adventurer {
         self.currentHP = currentHP
         self.totalHP = totalHP
         self.attack = attack
-        
     }
-    
 }

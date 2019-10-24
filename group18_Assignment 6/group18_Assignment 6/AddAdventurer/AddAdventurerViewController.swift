@@ -31,7 +31,10 @@ class AddAdventurerViewController: UIViewController, UICollectionViewDelegate, U
     ]
     
     var adventure: adventurer?
+    var adventurerAdded: Bool = false
     
+    //MARK: Methods
+    //Loading the screen
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,8 +42,7 @@ class AddAdventurerViewController: UIViewController, UICollectionViewDelegate, U
         addAdventurerCollectionView.delegate=self
     }
     
-    var adventurerAdded: Bool = false
-    //Function when the save button is tapped
+    //Function when the save button is tapped ==> Moved to ViewController due to segue
     /*@IBAction func addAdventurerTapped(_ sender: Any) {
         //Checks for whitespace/empty textfields
         if (enterName.text?.trimmingCharacters(in: .whitespaces).isEmpty ?? true) || (enterClass.text?.trimmingCharacters(in: .whitespaces).isEmpty ?? true) || (chosenImage?.isEqual(UIImage(named: "default")) ?? false){
@@ -96,6 +98,7 @@ class AddAdventurerViewController: UIViewController, UICollectionViewDelegate, U
       }
     }*/
 
+    //MARK: UICollectionView
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -112,7 +115,23 @@ class AddAdventurerViewController: UIViewController, UICollectionViewDelegate, U
         return cell
     }
     
-    //Selecting image
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+
+        return CGSize(width: widthPerItem, height: widthPerItem)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
+    }
+    
+    //Selecting an image
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderWidth = 3.0
@@ -121,7 +140,7 @@ class AddAdventurerViewController: UIViewController, UICollectionViewDelegate, U
         chosenImage = self.adventurerImages[indexPath.row]
     }
     
-    //Deselecting image
+    //Deselecting the image(s)
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderWidth = 0
@@ -129,13 +148,11 @@ class AddAdventurerViewController: UIViewController, UICollectionViewDelegate, U
         chosenImage = self.adventurerImages[indexPath.row]
     }
 
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    //MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        // Configure the destination view controller only when the save button is pressed.
+        //Configure the destination view controller only when the save button is pressed
         guard let button = sender as? UIButton, button === addButton else {
             os_log("The Add Adventurer button was not pressed, cancelling", log: OSLog.default, type: .debug)
             return
@@ -168,21 +185,5 @@ class AddAdventurerViewController: UIViewController, UICollectionViewDelegate, U
             enterName.text=""
             enterClass.text=""*/
         }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-        let availableWidth = view.frame.width - paddingSpace
-        let widthPerItem = availableWidth / itemsPerRow
-
-        return CGSize(width: widthPerItem, height: widthPerItem)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return sectionInsets
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return sectionInsets.left
     }
 }
